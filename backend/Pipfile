@@ -7,6 +7,7 @@ name = "pypi"
 fastapi = "*"
 motor = "*"
 beanie = "*"
+python-jose = "*"
 passlib = "*"
 
 [dev-packages]
