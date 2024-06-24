@@ -17,7 +17,10 @@
   - main.include_router(authentication, tags=["Authentication"], prefix="/api/auth"): Includes authentication router with '/api/auth' prefix and 'Authentication' tag.
 """
 
+from os import getenv
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from config.database import init_db
@@ -45,6 +48,14 @@ main = FastAPI(
               and knowledge sharing.",
   version="1.0",
   lifespan=lifespan
+)
+
+main.add_middleware(
+    CORSMiddleware,
+    allow_origins=getenv("ORIGINS"),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 main.include_router(user, tags=["Users"], prefix="/api/users")
