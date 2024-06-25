@@ -4,10 +4,14 @@ import { setCookie } from "typescript-cookie";
 import { Login, ILogin } from "../api/login";
 import { isAxiosError } from 'axios';
 import * as Yup from 'yup'
+import Loader from "./Loader";
+import { useNavigate } from "react-router-dom";
 
 const requiredMessage = "This field is required";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const initialValues: ILogin = {
     username: '',
     password: '',
@@ -21,9 +25,8 @@ const LoginForm = () => {
   const handleSubmit = async (values: ILogin, { setSubmitting }: any) => {
     try {
       const response = await Login(values);
-      toast.success(`${response}`, {
-        position: "bottom-right"
-      });
+      setCookie("access_token", response.access_token, { expires: 30 })
+      if (response) navigate("/")
     } catch (error) {
       if (isAxiosError(error)) {
         const errorMessage = error.response?.data?.detail || "An error occurred during login.";
@@ -72,11 +75,13 @@ const LoginForm = () => {
               />
             </div>
             <button
-              className="bg-[#FED500] lg:rounded-[0.5vw] md:rounded-[1vw] rounded-[2vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] px-[1vw] font-bold mt-[3vh] lg:text-dspan md:text-tspan text-mspan"
+              className="flex justify-center bg-[#FED500] lg:rounded-[0.5vw] md:rounded-[1vw] rounded-[2vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] px-[1vw] font-bold mt-[3vh] lg:text-dspan md:text-tspan text-mspan"
               type="submit"
               disabled={isSubmitting}
             >
-              Sign In
+              {
+                !isSubmitting ? "Sign In" : <Loader/>
+              }
             </button>
           </Form>
         )}
