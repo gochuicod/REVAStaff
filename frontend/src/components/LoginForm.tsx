@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 
-const requiredMessage = "This field is required";
+export const requiredMessage = "This field is required";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -52,8 +52,8 @@ const LoginForm = () => {
             <div className="flex flex-col gap-y-[1vh]">
               <label className="lg:text-dspan md:text-tspan text-mspan" htmlFor="username">Username</label>
               <Field
-                className="bg-[#F6F7FA] lg:rounded-[0.5vw] md:rounded-[1vw] rounded-[2vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] lg:px-[1vw] md:px-[1vw] px-[3vw] lg:text-dspan md:text-tspan text-mspan"
-                type="username"
+                className="bg-[#F6F7FA] lg:rounded-[1vw] md:rounded-[2vw] rounded-[5vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] lg:px-[1vw] md:px-[1vw] px-[3vw] lg:text-dspan md:text-tspan text-mspan"
+                type="text"
                 name="username"
                 placeholder="Enter your username"
               />
@@ -64,7 +64,7 @@ const LoginForm = () => {
             </div>
             <div className="flex flex-col gap-y-[1vh]">
               <label className="lg:text-dspan md:text-tspan text-mspan" htmlFor="password">Password</label>
-              <Field className="bg-[#F6F7FA] lg:rounded-[0.5vw] md:rounded-[1vw] rounded-[2vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] lg:px-[1vw] md:px-[1vw] px-[3vw] lg:text-dspan md:text-tspan text-mspan"
+              <Field className="bg-[#F6F7FA] lg:rounded-[1vw] md:rounded-[2vw] rounded-[5vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] lg:px-[1vw] md:px-[1vw] px-[3vw] lg:text-dspan md:text-tspan text-mspan"
                 type="password"
                 name="password"
                 placeholder="Enter your password"
@@ -75,7 +75,7 @@ const LoginForm = () => {
               />
             </div>
             <button
-              className="flex justify-center bg-[#FED500] lg:rounded-[0.5vw] md:rounded-[1vw] rounded-[2vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] px-[1vw] font-bold mt-[3vh] lg:text-dspan md:text-tspan text-mspan"
+              className="flex justify-center bg-[#FED500] lg:rounded-[1vw] md:rounded-[2vw] rounded-[5vw] lg:py-[1vh] md:py-[1vh] py-[1.5vh] px-[1vw] font-bold mt-[3vh] lg:text-dspan md:text-tspan text-mspan"
               type="submit"
               disabled={isSubmitting}
             >
