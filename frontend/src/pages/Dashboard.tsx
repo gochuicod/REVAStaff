@@ -1,9 +1,7 @@
 const Dashboard = () => {
   return (
-    <div className="flex flex-col justify-center items-center">
-      This is the dashboard
-    </div>
+    <h1 className="text-white">This is the Dashboard</h1>
   )
-}
+};
 
 export default Dashboard;
