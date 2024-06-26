@@ -16,10 +16,10 @@ from dotenv import load_dotenv
 from os import getenv
 from datetime import timedelta
 
-from models.user import User
-from models.auth import LoginRequestBody
+from src.models.user import User
+from src.models.auth import LoginRequestBody
 
-from utils.auth import verify_password, create_access_token, get_current_user
+from src.utils.auth import verify_password, create_access_token, get_current_user
 
 load_dotenv()
 ACCESS_TOKEN_EXPIRES_WEEKS = getenv("ACCESS_TOKEN_EXPIRES_WEEKS")

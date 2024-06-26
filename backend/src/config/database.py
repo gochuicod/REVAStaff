@@ -31,8 +31,8 @@ from fastapi import HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 
-from models.user import User
-from models.auth import LoginRequestBody
+from src.models.user import User
+from src.models.auth import LoginRequestBody
 
 MONGODB_URI = environ.get('MONGODB_URI')
 MONGODB_NAME = environ.get('MONGODB_NAME')

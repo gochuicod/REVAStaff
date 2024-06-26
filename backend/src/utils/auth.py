@@ -34,7 +34,7 @@ from jose import jwt, JWTError
 from dotenv import load_dotenv
 from os import getenv
 
-from models.user import User
+from src.models.user import User
 
 load_dotenv()
 ACCESS_TOKEN_EXPIRES_WEEKS = getenv("ACCESS_TOKEN_EXPIRES_WEEKS")

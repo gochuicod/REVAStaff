@@ -21,9 +21,9 @@ from pymongo.errors import DuplicateKeyError
 from bson import ObjectId
 from typing import List
 
-from models.user import User
+from src.models.user import User
 
-from utils.auth import hash_pw, get_current_user
+from src.utils.auth import hash_pw, get_current_user
 
 user = APIRouter()
 
