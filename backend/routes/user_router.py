@@ -39,12 +39,13 @@ async def get_all_users(current_user: HTTPAuthorizationCredentials = Depends(get
   return users
 
 @user.post('/', status_code=status.HTTP_201_CREATED)
-async def create_user(data: User, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
-  if(current_user.get("user").role != "admin"):
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Unauthorized access."
-    )
+# async def create_user(data: User, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
+async def create_user(data: User) -> dict:
+  # if(current_user.get("user").role != "admin"):
+  #   raise HTTPException(
+  #     status_code=status.HTTP_401_UNAUTHORIZED,
+  #     detail="Unauthorized access."
+  #   )
   
   data.password = hash_pw(data.password)
 
