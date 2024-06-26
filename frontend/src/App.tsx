@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Login, Error, Dashboard, Layout, Builder } from "./pages";
 
 import { ProtectedRoute, PublicRoute } from "./components";
+import { SidebarContextProvider } from "./context/SidebarContext";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,12 @@ const router = createBrowserRouter([
   },
 ])
 
-const App = () => <RouterProvider router={router}/>
+const App = () => {
+  return (
+    <SidebarContextProvider>
+      <RouterProvider router={router}/>
+    </SidebarContextProvider>
+  )
+}
 
 export default App
