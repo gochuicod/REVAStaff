@@ -34,7 +34,7 @@ from beanie import init_beanie
 from models.user import User
 from models.auth import LoginRequestBody
 
-MONGODB_URI = environ.get('MONGODB_URI_LOCAL')
+MONGODB_URI = environ.get('MONGODB_URI')
 MONGODB_NAME = environ.get('MONGODB_NAME')
 
 if MONGODB_URI is None or MONGODB_NAME is None:
