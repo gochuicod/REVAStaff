@@ -18,16 +18,20 @@ const Header = () => {
     search_text: string().required(requiredMessage)
   });
 
-  const handleSubmit = async (values: ISearch, { setSubmitting }: any) => {
-    try {
-      // Submission code here
-      values = { search_text: "test" }
-    } catch (error) {
-      // Error handling
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const handleSubmit = () => {
+    
+  }
+
+  // const handleSubmit = async (values: ISearch, { setSubmitting }: any) => {
+  //   try {
+  //     // Submission code here
+  //     values = { search_text: "test" }
+  //   } catch (error) {
+  //     // Error handling
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <div className="flex flex-row justify-between items-center bg-[#1D1E20] text-[#fff] lg:rounded-[1.5vw] md:rounded-[3vw] rounded-[8vw] lg:py-[1vh] md:py-[1vh] py-[1vh] lg:px-[1vw] md:px-[2vw] px-[3vw]">
