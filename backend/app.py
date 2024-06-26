@@ -9,12 +9,12 @@
   - from routes.authentication_router import authentication: Importing authentication router for handling authentication endpoints.
 
   Functions:
-  - async def lifespan(main: FastAPI): Asynchronous context manager for initializing the database when the application starts and printing a message when shutting down.
+  - async def lifespan(app: FastAPI): Asynchronous context manager for initializing the database when the application starts and printing a message when shutting down.
 
   Initialization:
-  - main: FastAPI instance initialized with title, description, version, and lifespan set to the defined async context manager.
-  - main.include_router(user, tags=["Users"], prefix="/api/users"): Includes user router with '/api/users' prefix and 'Users' tag.
-  - main.include_router(authentication, tags=["Authentication"], prefix="/api/auth"): Includes authentication router with '/api/auth' prefix and 'Authentication' tag.
+  - app: FastAPI instance initialized with title, description, version, and lifespan set to the defined async context manager.
+  - app.include_router(user, tags=["Users"], prefix="/api/users"): Includes user router with '/api/users' prefix and 'Users' tag.
+  - app.include_router(authentication, tags=["Authentication"], prefix="/api/auth"): Includes authentication router with '/api/auth' prefix and 'Authentication' tag.
 """
 
 from os import getenv
@@ -29,13 +29,13 @@ from routes.user_router import user
 from routes.authentication_router import authentication
 
 @asynccontextmanager
-async def lifespan(main: FastAPI):
+async def lifespan(app: FastAPI):
     await init_db()
     print("Database initialized")
     yield
     print("Application is shutting down")
 
-main = FastAPI(
+app = FastAPI(
   title="REVAStaff API",
   description="This API backend powers a sophisticated wiki platform for REVAStaff, \
               designed to streamline knowledge management within the organization. \
@@ -50,7 +50,7 @@ main = FastAPI(
   lifespan=lifespan
 )
 
-main.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=[getenv("ORIGINS")],
     allow_credentials=True,
@@ -58,5 +58,5 @@ main.add_middleware(
     allow_headers=["*"],
 )
 
-main.include_router(user, tags=["Users"], prefix="/api/users")
-main.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
+app.include_router(user, tags=["Users"], prefix="/api/users")
+app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
