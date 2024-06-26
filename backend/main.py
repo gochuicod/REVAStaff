@@ -52,7 +52,7 @@ main = FastAPI(
 
 main.add_middleware(
     CORSMiddleware,
-    allow_origins=getenv("ORIGINS"),
+    allow_origins=[getenv("ORIGINS")],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
