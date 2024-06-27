@@ -6,7 +6,7 @@ import { Login, Error, Dashboard, Layout, Builder } from "./pages";
 import { ProtectedRoute, PublicRoute } from "./components";
 import { SidebarContextProvider } from "./context/SidebarContext";
 
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const router = createBrowserRouter([
   {
