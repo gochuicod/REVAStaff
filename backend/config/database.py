@@ -18,9 +18,8 @@ if MONGODB_URI is None or MONGODB_NAME is None:
 
 async def init_db():
   try:
-    mongo_client = MongoClient(MONGODB_URI)
-    motor_client = AsyncIOMotorClient(mongo_client)
-    db = motor_client[MONGODB_NAME]
+    client = AsyncIOMotorClient(MONGODB_URI)
+    db = client.get_database("revastaff")
 
     await init_beanie(
       database=db,
