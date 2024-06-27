@@ -6,13 +6,13 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+passlib = "*"
+python-jose = "*"
 beanie = "*"
 motor = "*"
-python-jose = "*"
-passlib = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
-python_full_version = "3.9.19"
+python_version = "3.12"
+python_full_version = "3.12.4"
