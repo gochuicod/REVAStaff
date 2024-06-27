@@ -3,10 +3,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from contextlib import asynccontextmanager
+from dotenv import load_dotenv
 
 from config.database import init_db
 from routes.user_router import user
 from routes.authentication_router import authentication
+
+load_dotenv()
+origins = getenv("ORIGINS", "*")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,7 +32,6 @@ app = FastAPI(
   lifespan=lifespan
 )
 
-origins = getenv("ORIGINS", "*")
 app.add_middleware(
   CORSMiddleware,
   allow_origins=[origins] if origins != "*" else ["*"],
