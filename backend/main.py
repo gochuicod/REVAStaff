@@ -8,10 +8,10 @@ from config.database import init_db
 from routes.user_router import user
 from routes.authentication_router import authentication
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-  await init_db()
-  yield
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#   await init_db()
+#   yield
 
 app = FastAPI(
   title="REVAStaff API",
@@ -25,17 +25,17 @@ app = FastAPI(
             and confidentiality, supporting REVAStaff's commitment to efficient collaboration \
             and knowledge sharing.",
   version="1.0",
-  lifespan=lifespan
+  # lifespan=lifespan
 )
 
-origins = getenv("ORIGINS", "*")
-app.add_middleware(
-  CORSMiddleware,
-  allow_origins=[origins] if origins != "*" else ["*"],
-  allow_credentials=True,
-  allow_methods=["*"],
-  allow_headers=["*"],
-)
+# origins = getenv("ORIGINS", "*")
+# app.add_middleware(
+#   CORSMiddleware,
+#   allow_origins=[origins] if origins != "*" else ["*"],
+#   allow_credentials=True,
+#   allow_methods=["*"],
+#   allow_headers=["*"],
+# )
 
-app.include_router(user, tags=["Users"], prefix="/api/users")
-app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
+# app.include_router(user, tags=["Users"], prefix="/api/users")
+# app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
