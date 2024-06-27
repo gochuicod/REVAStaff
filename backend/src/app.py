@@ -85,21 +85,25 @@ app = FastAPI(
   version="1.0",
 )
 
-origins = getenv("ORIGINS", "*")
+app.get('/')
+async def test() -> dict:
+  return { "message": "Hello World!" }
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[origins] if origins != "*" else ["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# origins = getenv("ORIGINS", "*")
 
-@app.middleware("http")
-async def db_session_middleware(request: Request, call_next: Callable):
-    await init_db()
-    response = await call_next(request)
-    return response
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=[origins] if origins != "*" else ["*"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
-app.include_router(user, tags=["Users"], prefix="/api/users")
-app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
+# @app.middleware("http")
+# async def db_session_middleware(request: Request, call_next: Callable):
+#     await init_db()
+#     response = await call_next(request)
+#     return response
+
+# app.include_router(user, tags=["Users"], prefix="/api/users")
+# app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
