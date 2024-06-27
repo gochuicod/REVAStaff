@@ -1,3 +1,4 @@
+from pymongo import MongoClient
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 
@@ -13,8 +14,9 @@ MONGODB_NAME = getenv('MONGODB_NAME')
 
 async def init_db():
   try:
-    client = AsyncIOMotorClient(MONGODB_URI)
-    db = client[MONGODB_NAME]
+    mongo_client = MongoClient(MONGODB_URI)
+    motor_client = AsyncIOMotorClient(mongo_client)
+    db = motor_client[MONGODB_NAME]
 
     await init_beanie(
       database=db,
