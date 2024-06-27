@@ -1,12 +1,15 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
+
+from dotenv import load_dotenv
+from os import getenv
+
 from app.models.user import User
 from app.models.auth import LoginRequestBody
-from dotenv import dotenv_values
 
-config = dotenv_values(".env")
-MONGODB_URI = config['MONGODB_URI']
-MONGODB_NAME = config['MONGODB_NAME']
+load_dotenv()
+MONGODB_URI = getenv('MONGODB_URI')
+MONGODB_NAME = getenv('MONGODB_NAME')
 
 async def init_db():
   try:

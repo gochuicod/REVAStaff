@@ -1,11 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from dotenv import load_dotenv
+from os import getenv
+
 from app.routes.user_router import router as user_router
 from app.database import init_db
-from dotenv import dotenv_values
 
-config = dotenv_values(".env")
-ORIGINS = config['ORIGINS'].split(" ")
+load_dotenv()
+ORIGINS = getenv("ORIGINS").split(" ")
 
 app = FastAPI(
   title="FastAPI MongoDB Atlas Example",
