@@ -28,12 +28,13 @@ from utils.auth import hash_pw, get_current_user
 user = APIRouter()
 
 @user.get('/', status_code=status.HTTP_200_OK)
-async def get_all_users(current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> List[User]:
-  if(current_user.get("user").role != "admin"):
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Unauthorized access."
-    )
+# async def get_all_users(current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> List[User]:
+async def get_all_users() -> List[User]:
+  # if(current_user.get("user").role != "admin"):
+  #   raise HTTPException(
+  #     status_code=status.HTTP_401_UNAUTHORIZED,
+  #     detail="Unauthorized access."
+  #   )
   
   users = await User.find_all().to_list()
   return users
