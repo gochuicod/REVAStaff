@@ -6,9 +6,10 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
-motor = "*"
-python-dotenv = "*"
 beanie = "*"
+motor = "*"
+python-jose = "*"
+passlib = "*"
 
 [dev-packages]
 
