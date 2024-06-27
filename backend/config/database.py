@@ -30,9 +30,13 @@ from os import environ
 from fastapi import HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
+import logging
 
 from models.user import User
 from models.auth import LoginRequestBody
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 MONGODB_URI = environ.get('MONGODB_URI')
 MONGODB_NAME = environ.get('MONGODB_NAME')
@@ -45,9 +49,11 @@ if MONGODB_URI is None or MONGODB_NAME is None:
 
 async def init_db():
   try:
+    logger.info(f"Connecting to MongoDB at {MONGODB_URI}...")
     client = AsyncIOMotorClient(MONGODB_URI)
     db = client[MONGODB_NAME]
 
+    logger.info("Initializing Beanie models...")
     await init_beanie(
       database=db,
       document_models=[
@@ -55,5 +61,7 @@ async def init_db():
         LoginRequestBody
       ]
     )
+    logger.info("Database initialization complete.")
   except Exception as e:
-    print(e)
+    logger.error(f"Error initializing database: {e}")
+    raise
