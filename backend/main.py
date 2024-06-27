@@ -10,7 +10,7 @@ from routes.user_router import user
 from routes.authentication_router import authentication
 
 load_dotenv()
-origins = getenv("ORIGINS", "*")
+origins = getenv("ORIGINS").split(" ")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -34,7 +34,7 @@ app = FastAPI(
 
 app.add_middleware(
   CORSMiddleware,
-  allow_origins=[origins] if origins != "*" else ["*"],
+  allow_origins=origins,
   allow_credentials=True,
   allow_methods=["*"],
   allow_headers=["*"],
