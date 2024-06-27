@@ -28,10 +28,6 @@ app = FastAPI(
   # lifespan=lifespan
 )
 
-app.get("/")
-async def test():
-  return {"detail":"test message"}
-
 # origins = getenv("ORIGINS", "*")
 # app.add_middleware(
 #   CORSMiddleware,
@@ -42,4 +38,4 @@ async def test():
 # )
 
 # app.include_router(user, tags=["Users"], prefix="/api/users")
-# app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
+app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
