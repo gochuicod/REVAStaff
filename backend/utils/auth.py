@@ -4,15 +4,10 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
-from dotenv import load_dotenv
-from os import getenv
 
 from models.user import User
 
-load_dotenv()
-ACCESS_TOKEN_EXPIRES_WEEKS = getenv("ACCESS_TOKEN_EXPIRES_WEEKS")
-SECRET_KEY = getenv("SECRET_KEY")
-ALGORITHM = getenv("ALGORITHM")
+from config import settings
 
 security = HTTPBearer()
 
@@ -22,7 +17,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
   token = credentials.credentials
   
   try:
-    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
     username: str = payload.get("sub")
     if username is None:
       raise HTTPException(
@@ -60,5 +55,5 @@ def create_access_token(data: dict, expires_delta: timedelta):
   to_encode = data.copy()
   expire = datetime.utcnow() + expires_delta
   to_encode.update({"exp": expire})
-  encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+  encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
   return encoded_jwt

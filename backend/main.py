@@ -1,16 +1,19 @@
 from os import getenv
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
+from contextlib import asynccontextmanager
 
-from config.database import init_db
+from database import init_db
 
-from routes.authentication_router import authentication
 from routes.user_router import user
+from routes.authentication_router import authentication
 
-load_dotenv()
-origins = getenv('ORIGINS').split(' ')
+from config import settings
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+  await init_db()
+  yield
 
 app = FastAPI(
   title="REVAStaff API",
@@ -24,19 +27,16 @@ app = FastAPI(
             and confidentiality, supporting REVAStaff's commitment to efficient collaboration \
             and knowledge sharing.",
   version="1.0",
+  lifespan=lifespan
 )
 
 app.add_middleware(
   CORSMiddleware,
-  allow_origins=origins,
+  allow_origins=settings.ORIGINS,
   allow_credentials=True,
   allow_methods=["*"],
   allow_headers=["*"],
 )
 
-app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")
 app.include_router(user, tags=["Users"], prefix="/api/users")
-
-@app.on_event("startup")
-async def start_db():
-  await init_db()
+app.include_router(authentication, tags=["Authentication"], prefix="/api/auth")

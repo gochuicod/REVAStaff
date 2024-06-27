@@ -1,8 +1,6 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.security import HTTPAuthorizationCredentials
 
-from dotenv import load_dotenv
-from os import getenv
 from datetime import timedelta
 
 from models.user import User
@@ -10,8 +8,7 @@ from models.auth import LoginRequestBody
 
 from utils.auth import verify_password, create_access_token, get_current_user
 
-load_dotenv()
-ACCESS_TOKEN_EXPIRES_WEEKS = getenv("ACCESS_TOKEN_EXPIRES_WEEKS")
+from config import settings
 
 authentication = APIRouter()
 
@@ -25,7 +22,7 @@ async def login(data: LoginRequestBody) -> dict:
       detail="Invalid login credentials",
     )
 
-  access_token_expires = timedelta(weeks=int(ACCESS_TOKEN_EXPIRES_WEEKS))
+  access_token_expires = timedelta(weeks=int(settings.ACCESS_TOKEN_EXPIRES_WEEKS))
   access_token = create_access_token(
     data={"sub": user.username},
     expires_delta=access_token_expires

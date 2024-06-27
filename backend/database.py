@@ -1,16 +1,13 @@
-from os import environ
 from fastapi import HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
-from pymongo import MongoClient
 
 from models.user import User
 from models.auth import LoginRequestBody
 
-MONGODB_URI = environ.get('MONGODB_URI')
-MONGODB_NAME = environ.get('MONGODB_NAME')
+from config import settings
 
-if MONGODB_URI is None or MONGODB_NAME is None:
+if settings.MONGODB_URI is None or settings.MONGODB_NAME is None:
   raise HTTPException(
     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
     detail='Please define the MONGODB_URI and MONGODB_NAME environment variable inside .env'
@@ -18,8 +15,8 @@ if MONGODB_URI is None or MONGODB_NAME is None:
 
 async def init_db():
   try:
-    client = AsyncIOMotorClient(MONGODB_URI)
-    db = client.get_database("revastaff")
+    client = AsyncIOMotorClient(settings.MONGODB_URI)
+    db = client.get_database(settings.MONGODB_NAME)
 
     await init_beanie(
       database=db,

@@ -12,23 +12,25 @@ from utils.auth import hash_pw, get_current_user
 user = APIRouter()
 
 @user.get('/', status_code=status.HTTP_200_OK)
-async def get_all_users(current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> List[User]:
-  if(current_user.get("user").role != "admin"):
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Unauthorized access."
-    )
+# async def get_all_users(current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> List[User]:
+async def get_all_users() -> List[User]:
+  # if(current_user.get("user").role != "admin"):
+  #   raise HTTPException(
+  #     status_code=status.HTTP_401_UNAUTHORIZED,
+  #     detail="Unauthorized access."
+  #   )
   
   users = await User.find_all().to_list()
   return users
 
 @user.post('/', status_code=status.HTTP_201_CREATED)
-async def create_user(data: User, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
-  if(current_user.get("user").role != "admin"):
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Unauthorized access."
-    )
+# async def create_user(data: User, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
+async def create_user(data: User) -> dict:
+  # if(current_user.get("user").role != "admin"):
+  #   raise HTTPException(
+  #     status_code=status.HTTP_401_UNAUTHORIZED,
+  #     detail="Unauthorized access."
+  #   )
   
   data.password = hash_pw(data.password)
 
@@ -44,12 +46,13 @@ async def create_user(data: User, current_user: HTTPAuthorizationCredentials = D
   return {"detail": "User created successfully."}
 
 @user.patch('/{id}', status_code=status.HTTP_200_OK)
-async def update_user(id: str, data: dict, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
-  if(current_user.get("user").role != "admin"):
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Unauthorized access."
-    )
+# async def update_user(id: str, data: dict, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
+async def update_user(id: str, data: dict) -> dict:
+  # if(current_user.get("user").role != "admin"):
+  #   raise HTTPException(
+  #     status_code=status.HTTP_401_UNAUTHORIZED,
+  #     detail="Unauthorized access."
+  #   )
   
   user = await User.find_one(User.id == ObjectId(id))
 
@@ -64,12 +67,13 @@ async def update_user(id: str, data: dict, current_user: HTTPAuthorizationCreden
   return {"detail": "User credentials updated successfully."}
 
 @user.delete('/{id}', status_code=status.HTTP_200_OK)
-async def delete_user(id: str, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
-  if(current_user.get("user").role != "admin"):
-    raise HTTPException(
-      status_code=status.HTTP_401_UNAUTHORIZED,
-      detail="Unauthorized access."
-    )
+# async def delete_user(id: str, current_user: HTTPAuthorizationCredentials = Depends(get_current_user)) -> dict:
+async def delete_user(id: str) -> dict:
+  # if(current_user.get("user").role != "admin"):
+  #   raise HTTPException(
+  #     status_code=status.HTTP_401_UNAUTHORIZED,
+  #     detail="Unauthorized access."
+  #   )
   
   user = await User.find_one(User.id == ObjectId(id))
 
