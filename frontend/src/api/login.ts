@@ -12,6 +12,6 @@ export interface ILoginResponse {
 }
 
 export const Login = async (data: { username: string, password: string}): Promise<ILoginResponse> => {
-  const response = await axios.post('auth/login/', data)  
+  const response = await axios.post('auth/login/', data)
   return response.data as ILoginResponse
 }
