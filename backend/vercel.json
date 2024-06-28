@@ -6,10 +6,15 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/dist/app.js",
+    "src": "/(.*)",
+    "dest": "/dist/app.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/dist/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "https://revastaff.vercel.app/" },
