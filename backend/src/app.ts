@@ -15,7 +15,9 @@ connectDB();
 
 app.use(cors({
   credentials: true,
-  origin: [`${process.env.CORS_ORIGINS}`]
+  origin: [`${process.env.CORS_ORIGINS}`],
+  methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+  allowedHeaders: "*"
 }))
 
 app.use(express.json());
