@@ -9,7 +9,7 @@
   "rewrites": [
     {
     "source": "/(.*)",
-    "dest": "/dist/app.js"
+    "destination": "/dist/app.js"
     }
   ],
   "headers": [
