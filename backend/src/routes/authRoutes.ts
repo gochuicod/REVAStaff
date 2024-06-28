@@ -5,7 +5,9 @@ import cors from "cors"
 
 const authRouter: Router = Router()
 
-authRouter.options('*',cors())
+authRouter.options('*',cors({
+  optionsSuccessStatus: 200
+}))
 
 authRouter.get('/user', authenticateToken ,getCurrentUser)
 authRouter.post('/login',login)

@@ -5,7 +5,9 @@ import cors from 'cors'
 
 const userRouter: Router = Router();
 
-userRouter.options('*',cors())
+userRouter.options('*',cors({
+  optionsSuccessStatus: 200
+}))
 // userRouter.use(authenticateToken)
 
 userRouter.get('/', getUsers);
