@@ -7,7 +7,7 @@ const getUsers = async (req: Request, res: Response): Promise<void> => {
 
     res.json(users);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json({ detail: "Server error" });
   }
 };
 
@@ -18,9 +18,9 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
 
     await newUser.save();
 
-    res.status(200).send({"detail":"User created successfully!"});
+    res.status(200).json({"detail":"User created successfully!"});
   } catch (err) {
-    res.status(400).send(err);
+    res.status(500).json({ detail: "Server error" });
   }
 };
 
@@ -30,11 +30,11 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findByIdAndUpdate(id, data, { new: true })
 
-    if (!user) res.status(404).send({"detail":"User does not exist."});
+    if (!user) res.status(404).json({"detail":"User does not exist."});
 
-    res.status(200).send({"detail":"User updated successfully!"})
+    res.status(200).json({"detail":"User updated successfully!"})
   } catch (err) {
-    res.status(500).send(err)
+    res.status(500).json({ detail: "Server error" });
   }
 }
 
@@ -43,11 +43,11 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findByIdAndDelete(id);
 
-    if (!user) res.status(404).send({"detail":"User does not exist."});
+    if (!user) res.status(404).json({"detail":"User does not exist."});
 
-    res.status(200).send({"detail":"User deleted successfully"})
+    res.status(200).json({"detail":"User deleted successfully"})
   } catch (err) {
-    res.status(500).send(err)
+    res.status(500).json({ detail: "Server error" });
   }
 }
 

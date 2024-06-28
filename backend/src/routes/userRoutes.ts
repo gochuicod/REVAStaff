@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { getUsers, createUser, deleteUser, updateUser } from '../controllers/userController';
 import { authenticateToken } from '../middlewares/authHandler';
+import cors from 'cors'
 
 const userRouter: Router = Router();
 
-userRouter.use(authenticateToken)
+userRouter.options('*',cors())
+// userRouter.use(authenticateToken)
 
 userRouter.get('/', getUsers);
 userRouter.post('/', createUser);

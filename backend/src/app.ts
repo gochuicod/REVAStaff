@@ -15,11 +15,11 @@ connectDB();
 
 app.use(cors({
   credentials: true,
-  origin: "https://revastaff.vercel.app",
-  methods: ["GET","POST","PATCH","DELETE"],
-  allowedHeaders: ["X-CSRF-Token", "X-Requested-With", "Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "X-Api-Version"]
+  origin: [`${process.env.CORS_ORIGINS}`],
+  methods: ["GET","POST","PUT","DELETE","PATCH","OPTIONS"],
+  allowedHeaders: ["X-CSRF-Token","X-Requested-With","Accept","Accept-Version","Content-Length","Content-MD5","Content-Type","Date","X-Api-Version"],
+  optionsSuccessStatus: 200
 }))
-
 app.use(express.json());
 
 app.use('/api/users', userRouter);

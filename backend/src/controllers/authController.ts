@@ -12,12 +12,12 @@ const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findOne({ username }).exec();
 
-    if (!user) res.status(404).send({ detail: "User does not exist." });
+    if (!user) res.status(404).json({ detail: "User does not exist." });
 
     const user_password = user?.password || "";
     const passwordMatch = await bcrypt.compare(password, user_password);
 
-    if (!passwordMatch) res.status(401).send({ detail: "Invalid credentials" });
+    if (!passwordMatch) res.status(401).json({ detail: "Invalid credentials" });
 
     const user_id = user?.id || "", user_username = user?.username || "", user_role = user?.role || ""
 
@@ -33,10 +33,9 @@ const login = async (req: Request, res: Response): Promise<void> => {
       }
     );
 
-    res.status(200).send({ access_token: token, token_type: "Bearer", detail: "Access granted." });
+    res.status(200).json({ access_token: token, token_type: "Bearer", detail: "Access granted." });
   } catch (err) {
-    console.error(err);
-    res.status(500).send({ detail: "Server error" });
+    res.status(500).json({ detail: "Server error" });
   }
 };
 
