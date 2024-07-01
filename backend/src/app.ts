@@ -10,19 +10,12 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const allowedOrigins = process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : [];
 
 connectDB();
 
 app.use(cors({
   credentials: true,
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   methods: ["GET","POST","PUT","DELETE","PATCH","OPTIONS"],
   allowedHeaders: ["X-CSRF-Token","X-Requested-With","Accept","Accept-Version","Content-Length","Content-MD5","Content-Type","Date","X-Api-Version"],
   optionsSuccessStatus: 200
