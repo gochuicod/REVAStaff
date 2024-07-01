@@ -7,6 +7,7 @@ import { ProtectedRoute, PublicRoute } from "./components";
 import { SidebarContextProvider } from "./context/SidebarContext";
 
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const App = () => {
     <SidebarContextProvider>
       <RouterProvider router={router}/>
       <SpeedInsights/>
+      <Analytics/>
     </SidebarContextProvider>
   )
 }
